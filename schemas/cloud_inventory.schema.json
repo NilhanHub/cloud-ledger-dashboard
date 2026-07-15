@@ -1,0 +1,482 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.test/cloud-ledger/schemas/cloud_inventory.schema.json",
+  "title": "CloudInventoryPhase3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "generated_at",
+    "collector_version",
+    "collector_run_id",
+    "collection_status",
+    "status",
+    "auth_context_summary",
+    "accounts",
+    "selected_account",
+    "global_summary",
+    "cost_summary",
+    "project_costs",
+    "billing_export_coverage",
+    "spend_summary",
+    "spend_reconciliation",
+    "spend_by_project",
+    "billing_accounts",
+    "budgets",
+    "projects",
+    "services",
+    "resources",
+    "quotas",
+    "firebase",
+    "spend_by_service",
+    "spend_by_sku",
+    "spend_daily",
+    "spend_by_resource",
+    "risk_warnings",
+    "warnings",
+    "unavailable_sections",
+    "collector_run_log_summary",
+    "action_needed",
+    "app_registry",
+    "executive_summary",
+    "billing_account_actuals",
+    "business_app_actuals",
+    "attribution_gaps",
+    "business_apps",
+    "project_profiles",
+    "relationship_graph",
+    "resource_cost_exposure",
+    "data_quality"
+  ],
+  "properties": {
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "collector_version": {
+      "type": "string"
+    },
+    "collector_run_id": {
+      "type": "string",
+      "minLength": 8
+    },
+    "collection_status": {
+      "type": "string",
+      "enum": ["not_collected_yet", "collected", "partial", "failed"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["not_collected_yet", "collected", "partial", "failed"]
+    },
+    "selected_account": {
+      "type": "string"
+    },
+    "auth_context_summary": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["status", "active_account", "current_project", "target_accounts"]
+    },
+    "accounts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["email", "status", "gcloud_authenticated", "projects_count"]
+      }
+    },
+    "global_summary": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["target_accounts", "distinct_projects", "enabled_services", "paid_risk_services", "free_tier_limited_services", "quota_limited_services", "unknown_cost_services", "known_free_services", "visible_cost_risk_services", "resources", "visible_cost_risk_resources", "known_free_resources", "quotas", "risk_warnings", "unavailable_sections"]
+    },
+    "cost_summary": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "visible_monthly_spend",
+        "visible_monthly_spend_available",
+        "spend_unavailable_count",
+        "visible_billing_accounts",
+        "projects_with_billing_linked",
+        "projects_with_billing_not_visible",
+        "projects_with_billing_disabled_or_unlinked",
+        "budgets_visible_count",
+        "budgets_missing_count",
+        "budget_warnings",
+        "cost_risk_score",
+        "cost_risk_services_visible",
+        "known_free_services_hidden",
+        "cost_risk_resources_visible",
+        "known_free_resources_hidden",
+        "cost_risk_firebase_visible",
+        "known_free_firebase_hidden",
+        "billing_export_targets",
+        "selected_billing_export_target",
+        "bigquery_tables_count",
+        "spend_unavailable_reasons"
+      ]
+    },
+    "project_costs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["account_email", "project_id", "billing_linked", "current_month_spend", "budget_attached", "cost_status", "spend_unavailable_reason"]
+      }
+    },
+    "billing_accounts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["account_email", "billing_account_name", "display_name", "linked_projects_count", "budgets_count", "spend_available"]
+      }
+    },
+    "billing_export_coverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["billing_account_id", "export_status", "spend_available", "unlock_action"]
+      }
+    },
+    "spend_summary": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["actuals_available", "status", "date_range", "currency", "current_month_gross_cost", "current_month_credits", "current_month_net_cost", "forecasted_month_net_cost"]
+    },
+    "spend_reconciliation": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["status", "known_differences"]
+    },
+    "spend_by_project": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "budgets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["account_email", "project_id", "display_name", "lifecycle_state"]
+      }
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["account_email", "project_id", "service_name", "billing_relevance", "billing_risk_label", "billing_risk_reason", "cost_visibility"]
+      }
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "quotas": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["account_email", "project_id", "service", "quota_name", "limit", "usage", "collection_status"]
+      }
+    },
+    "firebase": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "spend_by_service": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "spend_by_sku": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "spend_daily": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "spend_by_resource": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "risk_warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["level", "category", "message"]
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["level", "category", "message"]
+      }
+    },
+    "unavailable_sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["section", "status", "code", "reason", "visibility_improvement"]
+      }
+    },
+    "collector_run_log_summary": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["run_id", "commands_attempted", "commands_succeeded", "commands_failed", "failures_by_code"]
+    },
+    "action_needed": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "severity",
+          "subsystem",
+          "account/project/billing account",
+          "problem",
+          "why_it_matters",
+          "exact_fix",
+          "approval_required",
+          "current_status",
+          "evidence_file"
+        ],
+        "properties": {
+          "id": { "type": "string" },
+          "severity": { "type": "string", "enum": ["info", "warning", "critical"] },
+          "subsystem": { "type": "string" },
+          "account/project/billing account": { "type": "string" },
+          "problem": { "type": "string" },
+          "why_it_matters": { "type": "string" },
+          "exact_fix": { "type": "string" },
+          "approval_required": { "type": "boolean" },
+          "current_status": { "type": "string" },
+          "evidence_file": { "type": "string" }
+        }
+      }
+    },
+    "app_registry": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["schema_version", "registry_type", "apps"]
+    },
+    "executive_summary": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "known_monthly_spend",
+        "known_monthly_spend_available",
+        "spend_unavailable_count",
+        "business_apps_count",
+        "projects_count",
+        "billing_coverage_percent",
+        "firebase_coverage_percent",
+        "budget_coverage_percent",
+        "data_confidence_score",
+        "cost_exposure_score",
+        "highest_risk_apps",
+        "highest_risk_projects",
+        "blockers_requiring_approval",
+        "plain_english_status"
+      ]
+    },
+    "business_apps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "app_id",
+          "display_name",
+          "business_owner",
+          "environment",
+          "mapped_google_projects",
+          "mapped_firebase_projects",
+          "actual_spend_status",
+          "budget_status",
+          "confidence",
+          "mapping_source",
+          "mapping_explanation"
+        ]
+      }
+    },
+    "billing_account_actuals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "billing_account_id",
+          "gross_cost",
+          "credits",
+          "net_cost",
+          "projects_count",
+          "actuals_available"
+        ]
+      }
+    },
+    "business_app_actuals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "app_id",
+          "display_name",
+          "gross_cost",
+          "credits",
+          "net_cost",
+          "actuals_available",
+          "source"
+        ]
+      }
+    },
+    "attribution_gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "id",
+          "project_id",
+          "billing_account_id",
+          "current_business_app_id",
+          "current_business_app_name",
+          "review_status",
+          "gross_cost",
+          "credits",
+          "net_cost",
+          "top_service_label",
+          "reason",
+          "suggested_action"
+        ]
+      }
+    },
+    "project_profiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "account_email",
+          "project_id",
+          "business_app_id",
+          "business_app_name",
+          "app_relationship",
+          "billing_linked",
+          "spend_visibility_label",
+          "spend_unavailable_reason",
+          "spend_unlock_action",
+          "budget_status",
+          "cost_risk_apis_count",
+          "resources_count",
+          "firebase_linked",
+          "quota_visibility_status",
+          "blockers",
+          "what_it_represents",
+          "what_can_cost_money",
+          "what_is_missing",
+          "executive_status",
+          "risk_score"
+        ]
+      }
+    },
+    "relationship_graph": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["nodes", "edges", "summary"],
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": ["id", "type", "label"]
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": ["from", "to", "type", "confidence", "mapping_source", "explanation"]
+          }
+        },
+        "summary": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": ["nodes_count", "edges_count"]
+        }
+      }
+    },
+    "resource_cost_exposure": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "account_email",
+          "project_id",
+          "business_app_id",
+          "business_app_name",
+          "resource_type",
+          "name",
+          "cost_driver_label",
+          "cost_class",
+          "actual_monthly_cost",
+          "actual_cost_status",
+          "actual_cost_reason",
+          "cost_exposure",
+          "unlock_action"
+        ]
+      }
+    },
+    "data_quality": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "overall_score",
+        "coverage_label",
+        "scores",
+        "what_we_know",
+        "what_we_cannot_see",
+        "gaps",
+        "account_coverage"
+      ]
+    }
+  }
+}

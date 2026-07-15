@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.test/cloud-ledger/schemas/app_registry.schema.json",
+  "title": "CloudDashboardAppRegistry",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "registry_type", "apps"],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "registry_type": { "type": "string" },
+    "last_updated": { "type": "string" },
+    "notes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "apps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "app_id",
+          "display_name",
+          "business_owner",
+          "technical_owner",
+          "environment",
+          "business_unit",
+          "markets",
+          "criticality",
+          "known_project_ids",
+          "known_firebase_project_ids",
+          "known_domains",
+          "notes"
+        ],
+        "properties": {
+          "app_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+          "display_name": { "type": "string" },
+          "business_owner": { "type": "string" },
+          "technical_owner": { "type": "string" },
+          "environment": { "type": "string" },
+          "business_unit": { "type": "string" },
+          "markets": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "criticality": { "type": "string" },
+          "lifecycle": { "type": "string" },
+          "known_project_ids": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "known_firebase_project_ids": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "known_domains": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

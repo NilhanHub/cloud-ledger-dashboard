@@ -1,0 +1,16 @@
+{
+  "name": "nilhan-cloud-ledger",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-cloudflare-site.mjs",
+    "cf:dev": "npm run build && wrangler dev",
+    "cf:login": "wrangler login",
+    "cf:whoami": "wrangler whoami",
+    "cf:dry-run": "npm run build && wrangler deploy --dry-run",
+    "cf:deploy": "npm run build && wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "4.110.0"
+  }
+}

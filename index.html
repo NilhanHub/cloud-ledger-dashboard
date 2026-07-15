@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Global Cloud Finance Command Suite</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563eb'/%3E%3Cpath d='M10.5 21.5h11a4.1 4.1 0 0 0 .7-8.1 6.1 6.1 0 0 0-11.8-1.8 5.1 5.1 0 0 0 .1 9.9Z' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="rail" aria-label="Dashboard navigation">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" role="img" aria-label="Global Cloud"><path d="M10.5 21.5h11a4.1 4.1 0 0 0 .7-8.1 6.1 6.1 0 0 0-11.8-1.8 5.1 5.1 0 0 0 .1 9.9Z"/></svg>
+        </span>
+        <div>
+          <strong>Global Cloud</strong>
+          <span>Finance Command Suite</span>
+        </div>
+      </div>
+
+      <nav>
+        <span class="nav-group">Executive Hub</span>
+        <a href="#boardOverview" data-nav-icon="grid"><span>Board Overview</span></a>
+        <a href="#applicationPortfolio" data-nav-icon="briefcase"><span>Apps & Spend</span></a>
+        <span class="nav-group">Relationships</span>
+        <a href="#relationshipMap" data-nav-icon="network"><span>App Relationship Ledger</span></a>
+        <a href="#relationshipMap" data-nav-icon="map"><span>Relationship Map</span></a>
+        <span class="nav-group">Cloud Operations</span>
+        <a href="#project360" data-nav-icon="building"><span>Project 360</span></a>
+        <a href="#costExposureCenter" data-nav-icon="shield"><span>Exposure Center</span></a>
+        <span class="nav-group">Governance</span>
+        <a href="#actionRoom" data-nav-icon="clipboard"><span>Action Room</span></a>
+        <a href="#dataConfidence" data-nav-icon="chart"><span>Data Confidence</span></a>
+        <span class="nav-group">Inventory</span>
+        <a href="#advancedInventory" data-nav-icon="database"><span>Advanced Inventory</span></a>
+        <a href="#rawSection" data-nav-icon="code"><span>Raw JSON Payload</span></a>
+      </nav>
+
+      <div class="rail-status" aria-label="Collector status summary">
+        <span class="ledger-dot visible" aria-hidden="true"></span>
+        <div>
+          <strong>Collector Status</strong>
+          <small id="railCollectorStatus">Loading</small>
+        </div>
+        <svg class="rail-sparkline" viewBox="0 0 120 32" aria-hidden="true" focusable="false">
+          <polyline points="0,27 10,26 20,25 30,26 40,24 50,25 60,23 70,24 80,19 90,25 100,10 110,24 120,16"/>
+        </svg>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <header class="topbar">
+        <div class="topbar-title">
+          <h1>Board Overview</h1>
+          <p class="executive-subtitle">Executive visibility across apps, projects, Firebase, resources, budgets, and cost blockers.</p>
+        </div>
+        <div class="topbar-controls">
+          <label class="account-control" for="accountSelector">
+            <span>Account View</span>
+            <select id="accountSelector"></select>
+          </label>
+          <label class="account-control" for="appSelector">
+            <span>Business App</span>
+            <select id="appSelector"></select>
+          </label>
+          <label class="account-control" for="environmentSelector">
+            <span>Environment</span>
+            <select id="environmentSelector"></select>
+          </label>
+          <label class="global-search" for="globalSearch">
+            <span class="sr-only">Search apps, projects, resources, and blockers</span>
+            <input id="globalSearch" type="search" placeholder="Search apps, projects, resources..." autocomplete="off">
+          </label>
+          <a class="icon-link" href="#actionRoom" aria-label="Open Action Room">
+            <span class="notification-dot" aria-hidden="true"></span>
+          </a>
+          <button type="button" id="exportBoardJson" class="primary-export">Export Report</button>
+          <div id="accountBadgesStrip" class="account-badges-strip" hidden></div>
+        </div>
+      </header>
+
+      <div class="executive-page">
+        <div class="main-stack">
+          <section id="boardOverview" class="band board-band" aria-labelledby="boardOverviewTitle">
+            <div class="section-heading sr-only">
+              <h2 id="boardOverviewTitle">What is our cloud exposure?</h2>
+            </div>
+            <div id="executiveKpis" class="metric-grid"></div>
+            <div id="executiveSummary" class="executive-brief"></div>
+          </section>
+
+          <section id="relationshipMap" class="band signature-card" aria-labelledby="relationshipMapTitle">
+            <div class="section-toolbar">
+              <div class="section-heading">
+                <h2 id="relationshipMapTitle">App Relationship Ledger</h2>
+                <p>See how each business app connects to projects, Firebase, resources, APIs, billing, and blockers.</p>
+              </div>
+              <div class="section-actions">
+                <label for="relationshipAppSelector">Select app</label>
+                <select id="relationshipAppSelector" data-relationship-app></select>
+                <button type="button" class="ghost-action" data-drill="app" data-id="">Open Relationship Map</button>
+              </div>
+            </div>
+            <div id="relationshipLedger"></div>
+          </section>
+
+          <section id="applicationPortfolio" class="band portfolio-card" aria-labelledby="applicationPortfolioTitle">
+            <div class="section-toolbar">
+              <div class="section-heading">
+                <h2 id="applicationPortfolioTitle">Application Portfolio</h2>
+                <p>Business applications and their cloud health at a glance.</p>
+              </div>
+              <div class="portfolio-actions">
+                <span>View</span>
+                <button type="button" class="icon-segment active" aria-label="Table view"></button>
+                <button type="button" class="icon-segment" aria-label="Card view"></button>
+                <button type="button" id="printBoardSummary" class="ghost-action">Print</button>
+                <button type="button" id="exportPortfolioCsv" class="ghost-action">Export CSV</button>
+              </div>
+            </div>
+            <div id="appPortfolio"></div>
+          </section>
+
+          <section id="project360" class="band" aria-labelledby="project360Title">
+            <div class="section-heading">
+              <h2 id="project360Title">Project 360</h2>
+              <p>Joined project profiles: app relationship, billing, resources, APIs, Firebase, quotas, blockers, and warnings.</p>
+            </div>
+            <div id="project360Table"></div>
+          </section>
+
+          <section id="costExposureCenter" class="band cost-first" aria-labelledby="costExposureTitle">
+            <div class="section-heading">
+              <h2 id="costExposureTitle">Cost Exposure Center</h2>
+              <p>Actual spend where proven; exposure and blockers where spend is unavailable.</p>
+            </div>
+            <div id="costCenterSummary" class="metric-grid"></div>
+            <div id="costReconciliationPanel" class="cost-reconciliation-panel"></div>
+            <div id="attributionGapsPanel" class="attribution-gaps-panel"></div>
+            <div id="attributionGapsTable" class="table-block"></div>
+            <div id="billingExportCoverageTable" class="table-block"></div>
+            <div id="costWarnings" class="notice-grid"></div>
+            <div id="costExposureTable" class="table-block"></div>
+          </section>
+
+          <section id="dataConfidence" class="band" aria-labelledby="dataConfidenceTitle">
+            <div class="section-heading">
+              <h2 id="dataConfidenceTitle">Data Confidence & Gaps</h2>
+              <p>What we know, what we cannot see, and how to unlock better executive reporting.</p>
+            </div>
+            <div id="dataQualitySummary"></div>
+            <details id="evidenceHealth" class="evidence-panel">
+              <summary>Open collector evidence and data health</summary>
+              <section class="status-grid-section" aria-label="System status indicators">
+                <div class="status-strip">
+                  <div><span>Collector Status</span><strong id="collectionStatus">Loading</strong></div>
+                  <div><span>Last Updated</span><strong id="generatedAt">-</strong></div>
+                  <div><span>Collector Version</span><strong id="collectorVersion">-</strong></div>
+                  <div><span>Collector Run ID</span><strong id="collectorRunId">-</strong></div>
+                  <div><span>gcloud Status</span><strong id="gcloudCliStatus">-</strong></div>
+                  <div><span>Firebase Status</span><strong id="firebaseCliStatus">-</strong></div>
+                  <div><span>BigQuery Billing Export</span><strong id="billingExportStatus">-</strong></div>
+                  <div><span>BigQuery Dataset</span><strong id="bqDatasetStatus">-</strong></div>
+                  <div><span>Spend Status</span><strong id="spendStatusText">-</strong></div>
+                  <div><span>Budget Visibility</span><strong id="budgetVisibilityText">-</strong></div>
+                  <div><span>Cloud Asset Visibility</span><strong id="assetVisibilityText">-</strong></div>
+                  <div><span>Cost-Risk APIs</span><strong id="apiVisibilityText">-</strong></div>
+                </div>
+              </section>
+            </details>
+            <div id="visibilityLedger" class="table-block"></div>
+            <div id="unavailableTable" class="table-block"></div>
+          </section>
+
+          <section id="advancedInventory" class="band" aria-labelledby="advancedInventoryTitle">
+            <div class="section-heading">
+              <h2 id="advancedInventoryTitle">Advanced Inventory</h2>
+              <p>Raw operational tables for audit and drilldown.</p>
+            </div>
+            <details open class="advanced-details">
+              <summary>Open advanced cloud inventory tables</summary>
+              <div id="billingAccountsTable" class="table-block"></div>
+              <div id="projectCostsTable" class="table-block"></div>
+              <div id="spendByProjectTable" class="table-block"></div>
+              <div id="spendByServiceTable" class="table-block"></div>
+              <div id="spendBySkuTable" class="table-block"></div>
+              <div id="spendDailyTable" class="table-block"></div>
+              <div id="spendByResourceTable" class="table-block"></div>
+              <div id="budgetsTable" class="table-block"></div>
+              <div id="projectExplorerTable" class="table-block"></div>
+              <div id="servicesTable" class="table-block"></div>
+              <div id="quotasTable" class="table-block"></div>
+              <div id="firebaseTable" class="table-block"></div>
+              <div id="resourcesTable" class="table-block"></div>
+            </details>
+          </section>
+
+          <section id="rawSection" class="band" aria-labelledby="rawTitle">
+            <div class="section-heading">
+              <h2 id="rawTitle">Raw JSON Payload</h2>
+              <p>Complete inventory payload for auditability.</p>
+            </div>
+            <details class="raw-details">
+              <summary>Open JSON payload</summary>
+              <pre id="rawJson"></pre>
+            </details>
+          </section>
+        </div>
+
+        <aside id="actionRoom" class="band action-rail" aria-labelledby="actionRoomTitle">
+          <div class="section-toolbar action-room-head">
+            <div class="section-heading">
+              <h2 id="actionRoomTitle">Action Room</h2>
+              <p>Approvals and owner actions that unlock better visibility.</p>
+            </div>
+            <a href="#actionRoom" class="view-all-link">View all</a>
+          </div>
+          <div id="actionNeededCards" class="action-list"></div>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <div id="drawerBackdrop" class="drawer-backdrop" hidden></div>
+  <aside id="detailDrawer" class="detail-drawer" aria-label="Executive detail drawer" aria-modal="true" role="dialog" hidden>
+    <div class="drawer-head">
+      <div>
+        <span id="drawerKicker" class="metric-label">Detail</span>
+        <h2 id="drawerTitle">Selection</h2>
+      </div>
+      <button type="button" class="icon-button" data-close-drawer aria-label="Close detail drawer">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div id="drawerContent" class="drawer-content"></div>
+  </aside>
+
+  <script src="data/cloud_inventory.data.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
